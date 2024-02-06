@@ -36,6 +36,7 @@ router.post('/checkDuplicate', async (req, res) => {
 
 // 회원가입을 위한 인증 링크 이메일 발송
 router.post('/send-code', async (req, res) => {
+    const db = getDB();
     // 인증 코드 생성
     const authkey = crypto.randomBytes(20).toString('hex');
     const expires = new Date();
