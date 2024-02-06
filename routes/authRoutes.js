@@ -64,7 +64,7 @@ router.post('/send-code', async (req, res) => {
         from: 'nyah309dev@gmail.com',
         to: to_address,
         subject: '인증 링크 발송',
-        html: `<p> <a href="${config.domain}:${config.port}/register-verify/?username=${to_address}&token=${authkey}">Verify email</a></p>
+        html: `<p> <a href="${config.domain}/register-verify/?username=${to_address}&token=${authkey}">Verify email</a></p>
         <p>이 링크를 클릭하여 ${expires.toLocaleDateString(undefined, {
             weekday: 'long',
             year: 'numeric',
@@ -100,6 +100,7 @@ router.post('/send-code', async (req, res) => {
 
 // 회원가입 인증 링크 처리
 router.get('/register-verify', async (req, res) => {
+    const db = getDB();
     let now = new Date();
     let result = await db.collection('user').findOne({ username: req.query.username });
     delete result.password;
@@ -129,6 +130,7 @@ router.get('/auth/google/callback',
 
 // 회원가입 인증 링크 처리
 router.get('/register-verify', async (req, res) => {
+    const db = getDB();
     let now = new Date();
     let result = await db.collection('user').findOne({ username: req.query.username });
     delete result.password;
