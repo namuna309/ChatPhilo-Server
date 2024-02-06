@@ -63,7 +63,7 @@ router.post('/send-code', async (req, res) => {
         from: 'nyah309dev@gmail.com',
         to: to_address,
         subject: '인증 링크 발송',
-        html: `<p> <a href="http://localhost:${cofig.port}/register-verify/?username=${to_address}&token=${authkey}">Verify email</a></p>
+        html: `<p> <a href="${config.domain}:${config.port}/register-verify/?username=${to_address}&token=${authkey}">Verify email</a></p>
         <p>이 링크를 클릭하여 ${expires.toLocaleDateString(undefined, {
             weekday: 'long',
             year: 'numeric',

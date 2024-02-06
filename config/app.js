@@ -16,7 +16,7 @@ const app = express();
 app.use(cors({
     origin: `${config.endpoint}`, // 클라이언트 주소
     credentials: true,
-    methods: "GET, HEAD, PUT, PATCH, POST, DELETE"
+    methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
 }));
 
 // Body parser 및 URL encoding 설정
