@@ -15,7 +15,8 @@ const app = express();
 // CORS 설정
 app.use(cors({
     origin: `${config.endpoint}`, // 클라이언트 주소
-    credentials: true
+    credentials: true,
+    methods: ['GET','HEAD','PUT','PATCH','POST','DELETE']
 }));
 
 // Body parser 및 URL encoding 설정
