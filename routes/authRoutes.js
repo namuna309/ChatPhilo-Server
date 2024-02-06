@@ -148,7 +148,6 @@ router.get('/register-verify', async (req, res) => {
 // 세션 확인
 router.get('/session', async (req, res) => {
     let user_data = req.user;
-    console.log(req.user);
     if(!user_data) console.log('세션 만료');
     else console.log('id: ', user_data._id, 'username: ', user_data.username, ' => 로그인') 
     return res.send(user_data);

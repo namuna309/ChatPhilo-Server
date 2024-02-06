@@ -30,7 +30,7 @@ passport.use(new LocalStrategy(async (inputUsername, inputPassword, done) => {
 passport.use(new GoogleStrategy({
     clientID: config.google_client_id,
     clientSecret: config.google_secret_key,
-    callbackURL: "http://localhost:8080/auth/google/callback"
+    callbackURL: `${config.domain}/auth/google/callback`
 }, async (accessToken, refreshToken, profile, done) => {
     const db = getDB();
     try {
