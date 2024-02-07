@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo');
 const passport = require('./auth');
 const routes = require('./routes');
 const config = require('../config');
+require('./auth')(passport);
 
 const mongodb_clusterUrl = `mongodb+srv://${config.mongodb_username}:${config.mongodb_pw}@${config.mongodb_cluster}.fdqwv6g.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -41,7 +42,6 @@ app.use(session({
 }));
 
 // Passport 초기화 및 세션 연결
-require('./auth')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
