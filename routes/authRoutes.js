@@ -93,7 +93,7 @@ router.post('/send-code', async (req, res) => {
                 expireDate: expires,
                 isVerified: false,
             })
-            res.redirect(`${config.endpoint}/main`);
+            res.redirect(`${config.endpoint}/`);
         }
     });
 });

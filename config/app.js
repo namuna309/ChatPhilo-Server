@@ -32,7 +32,7 @@ app.use(session({
     secret: config.session_secret,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 }, // 세션 유지 시간
+    cookie: { secure : false, maxAge: 1000 * 60 * 60 }, // 세션 유지 시간
     store: MongoStore.create({
         mongoUrl: mongodb_clusterUrl,
         dbName: config.mongodb_db,
