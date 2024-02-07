@@ -7,11 +7,12 @@ const MongoStore = require('connect-mongo');
 const passport = require('./auth');
 const routes = require('./routes');
 const config = require('../config');
-require('./auth')(passport);
 
 const mongodb_clusterUrl = `mongodb+srv://${config.mongodb_username}:${config.mongodb_pw}@${config.mongodb_cluster}.fdqwv6g.mongodb.net/?retryWrites=true&w=majority`;
 
 const app = express();
+
+app.enable('trust proxy')
 
 // CORS 설정
 app.use(cors({
@@ -34,7 +35,11 @@ app.use(session({
     secret: config.session_secret,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure : false, maxAge: 1000 * 60 * 60 }, // 세션 유지 시간
+    cookie: {
+        sameSite: 'none', // Cross-site 쿠키 전송을 위해
+        secure: true, // HTTPS를 통해서만 쿠키 전송
+        maxAge: 1000 * 60 * 60 // 예: 1시간
+    },
     store: MongoStore.create({
         mongoUrl: mongodb_clusterUrl,
         dbName: config.mongodb_db,
