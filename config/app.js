@@ -17,6 +17,7 @@ app.use(cors({
     origin: `${config.endpoint}`, // 클라이언트 주소
     credentials: true,
     methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+    allowedHeaders: ['Content-Type'],
 }));
 
 // Body parser 및 URL encoding 설정
@@ -40,6 +41,7 @@ app.use(session({
 }));
 
 // Passport 초기화 및 세션 연결
+require('./auth')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
