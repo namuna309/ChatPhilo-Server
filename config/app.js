@@ -36,7 +36,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        domain: config.endpoint,
         sameSite: 'none', // Cross-site 쿠키 전송을 위해
         secure: true, // HTTPS를 통해서만 쿠키 전송
         maxAge: 1000 * 60 * 60 // 예: 1시간
