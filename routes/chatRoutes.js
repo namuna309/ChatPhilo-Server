@@ -29,7 +29,6 @@ router.get('/c/request', async (req, res) => {
                 thread_id: thread.id
             });
             console.log('대화방 개설 완료', `chatroom: ${new_chatroom.insertedId}, thread: ${thread.id}`);
-            console.log(new_chatroom);
             return res.status(200).send({
                 thread_id: thread.id,
                 counselor: new_chatroom.counselor,
@@ -75,12 +74,18 @@ router.get('/c', async (req, res) => {
 // 새로운 메시지 생성
 router.post('/c/createMsg', async (req, res) => {
     console.log('작성한 메세지: ',req.body.content);
-    const createdMessages = await openai.beta.threads.messages.create(
-        req.query.tId,
-        { role: "user", content: req.body.content }
-    );
-    console.log('메세지 생성', createdMessages);
-    return res.status(200).send(createdMessages)
+    try {
+        const createdMessages = await openai.beta.threads.messages.create(
+            req.query.tId,
+            { role: "user", content: req.body.content }
+        );
+        console.log('메세지 생성', createdMessages);
+        return res.status(200).send(createdMessages)
+    } catch {
+        console.log(req.query.tId, ': ', err);
+        return res.status(400).send(err); 
+    }
+    
 })
 
 // OpenAI에서 응답 가져오기
@@ -102,7 +107,6 @@ router.get('/c/getResp', async (req, res) => {
             else {
                 limit++;
                 await delay(1000);
-                console.log('메세지 생성중', limit, '초')
             }
         }
 
